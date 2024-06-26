@@ -22,31 +22,37 @@
       const eggs = document.querySelectorAll(".egg, .eggs");
       const pot = document.querySelector(".pot");
       const potRect = pot.getBoundingClientRect();
+      const centerX = potRect.width / 2;
+      const centerY = potRect.height / 2;
 
-      function getRandomPosition() {
-        const maxX = potRect.width - 100; // 100은 달걀 크기
-        const maxY = potRect.height - 100; // 100은 달걀 크기
+      function getRandomPositionInEllipse() {
+        const maxX = 150;
+        const maxY = 70;
 
-        const x = Math.random() * maxX;
-        const y = Math.random() * maxY;
+        const x = centerX + (Math.random() * 2 - 1) * maxX - 50;
+        const y = centerY + (Math.random() * 2 - 1) * maxY - 50;
 
         return { x, y };
       }
 
-      eggs.forEach((egg, index) => {
-        let { x, y } = getRandomPosition();
-        egg.style.transform = `translate(${x}px, ${y}px)`;
+      eggs.forEach((egg) => {
+        let { x, y } = getRandomPositionInEllipse();
+        egg.style.left = `${x}px`;
+        egg.style.top = `${y}px`;
 
         egg.addEventListener("mouseover", () => {
           let newX, newY;
           do {
-            newX = Math.random() * (potRect.width - 100);
-            newY = Math.random() * (potRect.height - 100);
+            const newPosition = getRandomPositionInEllipse();
+            newX = newPosition.x;
+            newY = newPosition.y;
           } while (Math.abs(newX - x) < 100 && Math.abs(newY - y) < 100);
 
           const rotation = Math.floor(Math.random() * 90);
-          egg.style.transform = `translate(${newX}px, ${newY}px) rotate(${rotation}deg)`;
-          egg.style.transition = `transform 2s ease-out`;
+          egg.style.left = `${newX}px`;
+          egg.style.top = `${newY}px`;
+          egg.style.transform = `rotate(${rotation}deg)`;
+          egg.style.transition = `left 2s ease-out, top 2s ease-out, transform 2s ease-out`;
 
           x = newX;
           y = newY;
