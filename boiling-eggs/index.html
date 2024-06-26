@@ -26,7 +26,7 @@
       const centerY = potRect.height / 2;
 
       function getRandomPositionInEllipse() {
-        const maxX = 150;
+        const maxX = 130;
         const maxY = 70;
 
         const x = centerX + (Math.random() * 2 - 1) * maxX - 50;
@@ -40,7 +40,12 @@
         egg.style.left = `${x}px`;
         egg.style.top = `${y}px`;
 
+        let isMoving = false;
+
         egg.addEventListener("mouseover", () => {
+          if (isMoving) return;
+          isMoving = true;
+
           let newX, newY;
           do {
             const newPosition = getRandomPositionInEllipse();
@@ -52,11 +57,28 @@
           egg.style.left = `${newX}px`;
           egg.style.top = `${newY}px`;
           egg.style.transform = `rotate(${rotation}deg)`;
-          egg.style.transition = `left 2s ease-out, top 2s ease-out, transform 2s ease-out`;
+          egg.style.transition =
+            "left 2s ease-out, top 2s ease-out, transform 2s ease-out";
 
           x = newX;
           y = newY;
+
+          setTimeout(() => {
+            isMoving = false;
+          }, 2000);
         });
+
+        setInterval(() => {
+          if (isMoving) return;
+
+          const deltaX = (Math.random() * 2 - 1) * 10;
+          const deltaY = (Math.random() * 2 - 1) * 10;
+          x += deltaX;
+          y += deltaY;
+          egg.style.left = `${x}px`;
+          egg.style.top = `${y}px`;
+          egg.style.transition = "left 2s ease-out, top 2s ease-out";
+        }, 1500);
       });
 
       function updateTime() {
