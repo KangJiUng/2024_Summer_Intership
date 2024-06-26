@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>에그타이머 시계</title>
+    <link rel="stylesheet" href="./css/pot.css" />
+    <link rel="stylesheet" href="./css/egg.css" />
+    <link rel="stylesheet" href="./css/font.css" />
+  </head>
+  <body>
+    <div class="pot">
+      <div class="eggs" id="egg2"></div>
+      <div class="eggs" id="egg3"></div>
+      <div class="eggs" id="egg4"></div>
+      <div class="eggs" id="egg5"></div>
+      <div class="egg" id="egg1"></div>
+      <div class="eggs" id="egg6"></div>
+      <div class="eggs" id="egg7"></div>
+    </div>
+
+    <script>
+      const eggs = document.querySelectorAll(".egg, .eggs");
+      const pot = document.querySelector(".pot");
+      const potRect = pot.getBoundingClientRect();
+
+      function getRandomPosition() {
+        const maxX = potRect.width - 100; // 100은 달걀 크기
+        const maxY = potRect.height - 100; // 100은 달걀 크기
+
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
+
+        return { x, y };
+      }
+
+      eggs.forEach((egg, index) => {
+        let { x, y } = getRandomPosition();
+        egg.style.transform = `translate(${x}px, ${y}px)`;
+
+        egg.addEventListener("mouseover", () => {
+          let newX, newY;
+          do {
+            newX = Math.random() * (potRect.width - 100);
+            newY = Math.random() * (potRect.height - 100);
+          } while (Math.abs(newX - x) < 100 && Math.abs(newY - y) < 100);
+
+          const rotation = Math.floor(Math.random() * 90);
+          egg.style.transform = `translate(${newX}px, ${newY}px) rotate(${rotation}deg)`;
+          egg.style.transition = `transform 2s ease-out`;
+
+          x = newX;
+          y = newY;
+        });
+      });
+
+      function updateTime() {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, "0");
+        const minutes = String(now.getMinutes()).padStart(2, "0");
+        const seconds = String(now.getSeconds()).padStart(2, "0");
+        const currentTime = `${hours}:${minutes}:${seconds}`;
+
+        document.getElementById("egg1").textContent = currentTime;
+      }
+
+      setInterval(updateTime, 1000);
+      updateTime();
+    </script>
+  </body>
+</html>

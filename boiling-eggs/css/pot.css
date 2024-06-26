@@ -1,0 +1,39 @@
+@keyframes imageChange {
+  from {
+    background-image: url(../assets/boiling_pot1.png);
+  }
+  to {
+    background-image: url(../assets/boiling_pot5.png);
+  }
+}
+
+@keyframes imageChangeAdvanced {
+  0% {
+    background-image: url(../assets/boiling_pot1.png);
+  }
+  25% {
+    background-image: url(../assets/boiling_pot2.png);
+  }
+  50% {
+    background-image: url(../assets/boiling_pot3.png);
+  }
+  70% {
+    background-image: url(../assets/boiling_pot4.png);
+  }
+  100% {
+    background-image: url(../assets/boiling_pot5.png);
+  }
+}
+
+.pot {
+  width: 512px;
+  height: 512px;
+  background-image: url(../assets/boiling_pot1.png);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: auto;
+  animation: imageChangeAdvanced 10s infinite;
+}

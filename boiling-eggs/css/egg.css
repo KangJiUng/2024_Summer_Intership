@@ -1,0 +1,57 @@
+@keyframes colorChange {
+  from {
+    background-image: url(../assets/timer0.png);
+  }
+  to {
+    background-image: url(../assets/timer100.png);
+  }
+}
+
+@keyframes colorChangeAdvanced {
+  0% {
+    background-image: url(../assets/timer0.png);
+  }
+  25% {
+    background-image: url(../assets/timer25.png);
+  }
+  50% {
+    background-image: url(../assets/timer50.png);
+  }
+  75% {
+    background-image: url(../assets/timer75.png);
+  }
+  100% {
+    background-image: url(../assets/timer100.png);
+  }
+}
+
+.egg {
+  width: 128px;
+  height: 128px;
+  font-family: "Galmuri11 Bold";
+  font-size: 15px;
+  font-weight: 1000;
+  background-image: url(../assets/timer0.png);
+  border-radius: 50%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  writing-mode: vertical-rl;
+  text-orientation: sideways;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  animation: colorChangeAdvanced 5s infinite;
+  user-select: none;
+}
+
+.eggs {
+  width: 128px;
+  height: 128px;
+  background-image: url(../assets/egg1.png);
+  border-radius: 50%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
